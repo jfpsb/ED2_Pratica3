@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class GrafoComLista implements IGrafo {
 	private int V; // No. of vertices
-	private LinkedList<Integer> adj[]; // Adjacency Lists
+	private LinkedList<Node> adj[]; // Adjacency Lists
 	private static String resultado;
 
 	// Constructor
@@ -17,8 +17,8 @@ public class GrafoComLista implements IGrafo {
 	}
 
 	@Override
-	public void adicionarAresta(int u, int v) {
-		adj[u].add(v);
+	public void adicionarAresta(int u, int v, int peso) {
+		adj[u].add(new Node(v, peso));
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class GrafoComLista implements IGrafo {
 			// Get all adjacent vertices of the dequeued vertex s
 			// If a adjacent has not been visited, then mark it
 			// visited and enqueue it
-			Iterator<Integer> i = adj[s].listIterator();
+			Iterator<Node> i = adj[s].listIterator();
 			while (i.hasNext()) {
-				int n = i.next();
-				if (!visited[n]) {
-					visited[n] = true;
-					queue.add(n);
+				Node n = i.next();
+				if (!visited[n.getNumero()]) {
+					visited[n.getNumero()] = true;
+					queue.add(n.getNumero());
 				}
 			}
 		}
@@ -63,11 +63,11 @@ public class GrafoComLista implements IGrafo {
 		nivel++;
 		adicionaEmResultado("Vértice: " + v + " - " + "Nível: " + nivel + "\n");
 		// Recur for all the vertices adjacent to this vertex
-		Iterator<Integer> i = adj[v].listIterator();
+		Iterator<Node> i = adj[v].listIterator();
 		while (i.hasNext()) {
-			int n = i.next();
-			if (!visited[n])
-				DFSUtil(n, visited, nivel);
+			Node n = i.next();
+			if (!visited[n.getNumero()])
+				DFSUtil(n.getNumero(), visited, nivel);
 		}
 	}
 

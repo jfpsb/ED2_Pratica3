@@ -21,8 +21,8 @@ public class GrafoComMatriz implements IGrafo {
 	}
 
 	@Override
-	public void adicionarAresta(int u, int v) {
-		matrizAdj[u][v] = 1;
+	public void adicionarAresta(int u, int v, int peso) {
+		matrizAdj[u][v] = peso;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class GrafoComMatriz implements IGrafo {
 			nivel++;
 
 			for (int i = 0; i < V; i++) {
-				if (matrizAdj[s][i] == 1 && visited[i] == false) {
+				if (matrizAdj[s][i] > 0 && visited[i] == false) {
 					visited[i] = true;
 					queue.add(i);
 				}
@@ -77,7 +77,7 @@ public class GrafoComMatriz implements IGrafo {
 			element = stack.peek();
 			i = 0;
 			while (i <= number_of_nodes) {
-				if (matrizAdj[element][i] == 1 && visited[i] == false) {
+				if (matrizAdj[element][i] > 0 && visited[i] == false) {
 					stack.push(i);
 					visited[i] = true;
 					element = i;

@@ -102,7 +102,15 @@ public class Auxiliar {
 			while ((line = br.readLine()) != null) {
 				String linha[] = line.split(" ");
 
-				grafo.adicionarAresta(Integer.parseInt(linha[0]), Integer.parseInt(linha[1]));
+				int peso;
+
+				try {
+					peso = Integer.parseInt(linha[2]);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					peso = 1;
+				}
+
+				grafo.adicionarAresta(Integer.parseInt(linha[0]), Integer.parseInt(linha[1]), peso);
 			}
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
