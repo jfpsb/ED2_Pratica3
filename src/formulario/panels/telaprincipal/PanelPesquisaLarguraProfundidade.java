@@ -24,9 +24,9 @@ public class PanelPesquisaLarguraProfundidade extends JPanel {
 
 	public PanelPesquisaLarguraProfundidade() {
 		lblVerticiInicial = new JLabel("Vértice Inicial: ");
-		lblMsgArquivo = new JLabel("Será gerado um arquivo com o resultado");
+		lblMsgArquivo = new JLabel("O resultado aparecerá na tela. De cima para baixo.");
 		txtVerticeInicial = new JTextField(15);
-		
+
 		btnPesquisar = new JButton("Pesquisar");
 
 		rbLargura = new JRadioButton("Pesquisa em Largura");
@@ -49,5 +49,69 @@ public class PanelPesquisaLarguraProfundidade extends JPanel {
 
 		this.setBorder(BorderFactory.createTitledBorder("Pesquisa em Profundidade e em Largura"));
 		this.add(innerPanel);
+	}
+
+	public JPanel getInnerPanel() {
+		return innerPanel;
+	}
+
+	public void setInnerPanel(JPanel innerPanel) {
+		this.innerPanel = innerPanel;
+	}
+
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	public void setButtonGroup(ButtonGroup buttonGroup) {
+		this.buttonGroup = buttonGroup;
+	}
+
+	public JRadioButton getRbLargura() {
+		return rbLargura;
+	}
+
+	public void setRbLargura(JRadioButton rbLargura) {
+		this.rbLargura = rbLargura;
+	}
+
+	public JRadioButton getRbProfundidade() {
+		return rbProfundidade;
+	}
+
+	public void setRbProfundidade(JRadioButton rbProfundidade) {
+		this.rbProfundidade = rbProfundidade;
+	}
+
+	public JLabel getLblVerticiInicial() {
+		return lblVerticiInicial;
+	}
+
+	public void setLblVerticiInicial(JLabel lblVerticiInicial) {
+		this.lblVerticiInicial = lblVerticiInicial;
+	}
+
+	public JLabel getLblMsgArquivo() {
+		return lblMsgArquivo;
+	}
+
+	public void setLblMsgArquivo(JLabel lblMsgArquivo) {
+		this.lblMsgArquivo = lblMsgArquivo;
+	}
+
+	public JTextField getTxtVerticeInicial() {
+		return txtVerticeInicial;
+	}
+
+	public void setTxtVerticeInicial(JTextField txtVerticeInicial) {
+		this.txtVerticeInicial = txtVerticeInicial;
+	}
+
+	public JButton getBtnPesquisar() {
+		return btnPesquisar;
+	}
+
+	public void setBtnPesquisar(JButton btnPesquisar) {
+		this.btnPesquisar = btnPesquisar;
 	}
 }
