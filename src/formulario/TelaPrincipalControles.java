@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import formulario.panels.telaprincipal.PanelArvoreGeradoraMinima;
 import formulario.panels.telaprincipal.PanelGerarArquivoGrafo;
 import formulario.panels.telaprincipal.PanelOpenFile;
 import formulario.panels.telaprincipal.PanelPesquisaLarguraProfundidade;
@@ -26,6 +27,7 @@ abstract public class TelaPrincipalControles extends JFrame {
 	protected PanelOpenFile panelOpenFile;
 	protected PanelGerarArquivoGrafo panelGerarArquivoGrafo;
 	protected PanelPesquisaLarguraProfundidade panelPesquisaLarguraProfundidade;
+	protected PanelArvoreGeradoraMinima panelArvoreGeradoraMinima;
 
 	public TelaPrincipalControles() {
 		super("Atividade Prática 3 - Grafos");
@@ -36,6 +38,7 @@ abstract public class TelaPrincipalControles extends JFrame {
 		panelOpenFile = new PanelOpenFile();
 		panelGerarArquivoGrafo = new PanelGerarArquivoGrafo();
 		panelPesquisaLarguraProfundidade = new PanelPesquisaLarguraProfundidade();
+		panelArvoreGeradoraMinima = new PanelArvoreGeradoraMinima();
 
 		// EscolherArquivo
 		escolherArquivo = new JFileChooser();
@@ -56,10 +59,11 @@ abstract public class TelaPrincipalControles extends JFrame {
 		panelPrincipal.add(panelOpenFile);
 		panelPrincipal.add(panelGerarArquivoGrafo);
 		panelPrincipal.add(panelPesquisaLarguraProfundidade);
+		panelPrincipal.add(panelArvoreGeradoraMinima);
 
 		// telaPrincipal
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(630, 400));
+		this.setMinimumSize(new Dimension(630, 500));
 		this.setLocationRelativeTo(null);
 //		this.setResizable(false);
 		this.pack();

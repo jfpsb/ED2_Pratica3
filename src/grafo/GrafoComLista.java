@@ -1,11 +1,15 @@
 package grafo;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class GrafoComLista implements IGrafo {
 	private int V; // No. of vertices
-	private LinkedList<Node> adj[]; // Adjacency Lists
+	private LinkedList<Aresta> adj[]; // Adjacency Lists
 	private static String resultado;
 
 	// Constructor
@@ -18,7 +22,7 @@ public class GrafoComLista implements IGrafo {
 
 	@Override
 	public void adicionarAresta(int u, int v, int peso) {
-		adj[u].add(new Node(v, peso));
+		adj[u].add(new Aresta(v, peso));
 	}
 
 	@Override
@@ -43,12 +47,12 @@ public class GrafoComLista implements IGrafo {
 			// Get all adjacent vertices of the dequeued vertex s
 			// If a adjacent has not been visited, then mark it
 			// visited and enqueue it
-			Iterator<Node> i = adj[s].listIterator();
+			Iterator<Aresta> i = adj[s].listIterator();
 			while (i.hasNext()) {
-				Node n = i.next();
-				if (!visited[n.getNumero()]) {
-					visited[n.getNumero()] = true;
-					queue.add(n.getNumero());
+				Aresta n = i.next();
+				if (!visited[n.getChave()]) {
+					visited[n.getChave()] = true;
+					queue.add(n.getChave());
 				}
 			}
 		}
@@ -63,11 +67,11 @@ public class GrafoComLista implements IGrafo {
 		nivel++;
 		adicionaEmResultado("Vértice: " + v + " - " + "Nível: " + nivel + "\n");
 		// Recur for all the vertices adjacent to this vertex
-		Iterator<Node> i = adj[v].listIterator();
+		Iterator<Aresta> i = adj[v].listIterator();
 		while (i.hasNext()) {
-			Node n = i.next();
-			if (!visited[n.getNumero()])
-				DFSUtil(n.getNumero(), visited, nivel);
+			Aresta n = i.next();
+			if (!visited[n.getChave()])
+				DFSUtil(n.getChave(), visited, nivel);
 		}
 	}
 
@@ -89,5 +93,53 @@ public class GrafoComLista implements IGrafo {
 
 	private static void adicionaEmResultado(String s) {
 		resultado += s;
+	}
+
+	@Override
+	public String arvoreGeradoraMinima(int vertice) {
+		Aresta keys[] = new Aresta[V];
+		int parent[] = new int[V];
+		boolean mstSet[] = new boolean[V];
+		String res = null;
+
+		for (int i = 0; i < V; i++) {
+			keys[i] = new Aresta(i, Integer.MAX_VALUE);
+			parent[i] = -1;
+			mstSet[i] = false;
+		}
+		keys[0].setChave(0);
+		Queue<Aresta> pQueue = new PriorityQueue<>();
+		pQueue.addAll(Arrays.asList(keys));
+
+		while (pQueue.size() > 1) {
+			Aresta u = pQueue.remove();
+			mstSet[u.getChave()] = true;
+
+			for (Aresta node : adj[u.getChave()]) {
+				int v = node.getChave();
+				if (mstSet[v] == false && node.getPeso() < keys[v].getPeso()) {
+					pQueue.remove(keys[v]); // remove that node from q
+
+					keys[v].setPeso(node.getPeso()); // change key
+					parent[v] = u.getChave();
+
+					pQueue.add(keys[v]); // add back
+					// remove add can me made single function by using a visited
+					// flag
+					// instead of actually removing node just mark it as dirty
+					// and use polling later
+					// remove_add() in O(lg(n))
+				}
+
+			}
+		}
+
+		res = "Aresta   ---   Peso\n";
+		for (int i = 1; i < V; i++) {
+			int v = keys[i].getChave();
+			res += "(" + parent[v] + ", " + v + ")   ---   " + keys[v].getPeso() + "\n";
+		}
+
+		return res;
 	}
 }

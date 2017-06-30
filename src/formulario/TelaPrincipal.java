@@ -138,5 +138,26 @@ public class TelaPrincipal extends TelaPrincipalControles {
 			}
 
 		});
+
+		panelArvoreGeradoraMinima.getBtnMostrarArvore().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					if (arquivoSelecionado == null)
+						throw new NullPointerException("Não há um grafo carregado.");
+
+					int vertice = Integer.parseInt(panelArvoreGeradoraMinima.getTxtVertice().getText());
+
+					String res = interfaceGrafo.arvoreGeradoraMinima(vertice);
+
+					JOptionPane.showMessageDialog(null, res);
+				} catch (NullPointerException ne) {
+					JOptionPane.showMessageDialog(null, ne.getMessage());
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "Há algo errado com o número que você digitou.");
+				}
+			}
+		});
 	}
 }
